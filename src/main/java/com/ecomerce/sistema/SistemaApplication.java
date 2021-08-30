@@ -13,6 +13,7 @@ import com.ecomerce.sistema.domain.Cidade;
 import com.ecomerce.sistema.domain.Cliente;
 import com.ecomerce.sistema.domain.Endereco;
 import com.ecomerce.sistema.domain.Estado;
+import com.ecomerce.sistema.domain.ItemPedido;
 import com.ecomerce.sistema.domain.Pagamento;
 import com.ecomerce.sistema.domain.PagamentoComBoleto;
 import com.ecomerce.sistema.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.ecomerce.sistema.repositories.CidadeRepository;
 import com.ecomerce.sistema.repositories.ClienteRepository;
 import com.ecomerce.sistema.repositories.EnderecoRepository;
 import com.ecomerce.sistema.repositories.EstadoRepository;
+import com.ecomerce.sistema.repositories.ItemPedidoRepository;
 import com.ecomerce.sistema.repositories.PagamentoRepository;
 import com.ecomerce.sistema.repositories.PedidoRepository;
 import com.ecomerce.sistema.repositories.ProdutoRepository;
@@ -34,27 +36,21 @@ public class SistemaApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-
 	@Autowired
 	private ProdutoRepository produtoRepository;
-
 	@Autowired
 	private EstadoRepository estadoRepository;
-
 	@Autowired
 	private CidadeRepository cidadeRepository;
-
 	@Autowired
 	private ClienteRepository clienteRepository;
-
 	@Autowired
-	private EnderecoRepository enderecoRepository;
-	
+	private EnderecoRepository enderecoRepository;	
 	@Autowired
-	private PedidoRepository pedidoRepository;
-	
+	private PedidoRepository pedidoRepository;	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaApplication.class, args);
@@ -130,13 +126,28 @@ public class SistemaApplication implements CommandLineRunner {
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
-		ped2.setPagamento(pagto2);
-		
+		ped2.setPagamento(pagto2);		
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
-		clienteRepository.save(cli1);
+		clienteRepository.save(cli1); //NÃO É NECESSÁRIO
+		
+		/**
+		 * ITEM_PEDIDO
+		 */
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, p1.getPreco());
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, p3.getPreco());
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, p2.getPreco());
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().add(ip3);
+		
+		p1.getItens().add(ip1);
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
+		
 	}
 
 }
