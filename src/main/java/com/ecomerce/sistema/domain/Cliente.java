@@ -18,9 +18,8 @@ import com.ecomerce.sistema.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente implements Serializable{
-	
-	
+public class Cliente implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,18 +28,21 @@ public class Cliente implements Serializable{
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente")//nome do objeto java
+	@OneToMany(mappedBy = "cliente") // nome do objeto java
 	private List<Endereco> enderecos = new ArrayList<>();
-	
-	//Entity <<weak>>
+
+	// Entity <<weak>>
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+
 	public Cliente() {
-		
+
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -84,7 +86,7 @@ public class Cliente implements Serializable{
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
-	public TipoCliente getTipo() {		
+	public TipoCliente getTipo() {
 		return TipoCliente.toEnum(tipo);
 	}
 
@@ -106,6 +108,14 @@ public class Cliente implements Serializable{
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
@@ -132,6 +142,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-	
- 
+
 }
