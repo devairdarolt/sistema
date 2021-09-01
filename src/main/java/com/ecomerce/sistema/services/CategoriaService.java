@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.ecomerce.sistema.domain.Categoria;
+import com.ecomerce.sistema.domain.Cliente;
 import com.ecomerce.sistema.dto.CategoriaDTO;
 import com.ecomerce.sistema.repositories.CategoriaRepository;
 import com.ecomerce.sistema.services.exceptions.DataIntegrityException;
@@ -35,8 +36,15 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj,obj);
+		return repo.save(newObj);
+	}	
+	
+
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
 	}
 
 	public void delete(Integer id) {
