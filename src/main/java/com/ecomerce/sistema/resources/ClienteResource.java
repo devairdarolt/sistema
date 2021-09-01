@@ -19,17 +19,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ecomerce.sistema.domain.Cliente;
 import com.ecomerce.sistema.dto.ClienteDTO;
+import com.ecomerce.sistema.dto.ClienteNewDTO;
 import com.ecomerce.sistema.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
-	
+
 	@Autowired
 	ClienteService service;
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id){
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -41,16 +42,14 @@ public class ClienteResource {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
-		//Cliente obj = service.insert(service.fromDTO(objDto));
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+		Cliente cliente = service.fromDTO(objDto);
+		Cliente obj = service.insert(cliente);
 		// Para retornar como resposta HTTP 201 a url com o Id ==
 		// http://localhost:8080/categorias/{id}
-		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		// Cria o código HTTP 201 para informar que foi criado uma nova Cliente
-		//return ResponseEntity.created(uri).build();
-		throw new UnsupportedOperationException();
-
+		return ResponseEntity.created(uri).build();
 	}
 
 	/**
@@ -81,8 +80,8 @@ public class ClienteResource {
 	}
 
 	/**
-	 * Lista todas as categorias passando o objeto Cliente para ClienteDTO na
-	 * qual não são listados os produtos atribuídos a cada categoria
+	 * Lista todas as categorias passando o objeto Cliente para ClienteDTO na qual
+	 * não são listados os produtos atribuídos a cada categoria
 	 * 
 	 * @return ResponseEntity<List<ClienteDTO>>
 	 */
