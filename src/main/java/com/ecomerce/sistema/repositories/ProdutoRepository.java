@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecomerce.sistema.domain.Categoria;
 import com.ecomerce.sistema.domain.Produto;
@@ -34,5 +35,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
 	 * @param pageRequest
 	 * @return
 	 */
+	
+	@Transactional(readOnly = true) // Para fazer leituras rápidas do banco de dados sem Transaction Lock
 	Page<Produto> findDistinctByNomeContainingAndCategoriasIn(String nome, List<Categoria> categorias, Pageable pageRequest);
 }
