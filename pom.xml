@@ -9,7 +9,7 @@
 		<version>2.5.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ecomerce</groupId>
+	<groupId>com.ecommerce</groupId>
 	<artifactId>sistema</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sistema</name>
