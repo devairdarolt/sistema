@@ -4,4 +4,7 @@ sudo /opt/lammp/xamp start
 # Utilizar mysql do lammp (root sem senha)
 export PATH=$PATH:/opt/lampp/bin
 
+# Iniciar MySql (sem senha)
+mysql -u root -p
+
 
