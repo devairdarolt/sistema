@@ -1,0 +1,7 @@
+# Start Xammp (mysql e myadmin)
+sudo /opt/lammp/xamp start
+
+# Utilizar mysql do lammp (root sem senha)
+export PATH=$PATH:/opt/lampp/bin
+
+
