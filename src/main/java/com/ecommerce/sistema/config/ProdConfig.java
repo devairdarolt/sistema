@@ -12,7 +12,7 @@ import com.ecommerce.sistema.services.DBService;
 
 @Configuration
 @Profile("prod")
-public class DevConfig {
+public class ProdConfig {
 	@Autowired
 	private DBService dBService;
 	
