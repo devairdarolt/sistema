@@ -34,3 +34,6 @@ build/
 
 ### Logs ###
 *.log
+
+#### 
+src/main/resources/application-prod.properties

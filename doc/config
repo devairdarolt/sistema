@@ -1,10 +1,22 @@
 # Start Xammp (mysql e myadmin)
 sudo /opt/lammp/xamp start
 
+
 # Utilizar mysql do lammp (root sem senha)
 export PATH=$PATH:/opt/lampp/bin
 
+
 # Iniciar MySql (sem senha)
 mysql -u root -p
+
+
+#Add git repository to heroku
+heroku git:remote -a sistema-ecommerce-spring
+
+#Get URL de heroku mysql
+heroku config | grep CLEARDB_DATABASE_URL
+
+#Add mysql data to mysql heroko
+mysql --host=us-cdbr-iron-east-05.cleardb.net --user=??? --password=??? --reconnect heroku_71216a81091a2da < sistema_db.sq
 
 
