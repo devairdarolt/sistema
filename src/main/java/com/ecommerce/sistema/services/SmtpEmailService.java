@@ -17,6 +17,9 @@ public class SmtpEmailService extends AbstractEmailService {
 		LOGGER.info(msg.toString());
 		// Liberar app menos seguro em:
 		// https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4PsS8rMpphE8PeG7TelQ5D0f7qr4Ka0wrcdeaeaYqGHH0yZ_3mCYCOeanGWODTb7g1GKx0Dlb4AOgtCOPVxMZ-Q5GoRIw
+
+		// liberar também no endereço:
+		// https://accounts.google.com/b/0/DisplayUnlockCaptcha
 		mailSender.send(msg);
 		LOGGER.info("Email enviado");
 
