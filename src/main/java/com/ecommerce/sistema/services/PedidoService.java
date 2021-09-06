@@ -33,6 +33,8 @@ public class PedidoService {
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	private ClienteService clienteService;
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -69,7 +71,10 @@ public class PedidoService {
 
 		// Persist itens
 		itemPedidoRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		
+		emailService.sendOrderConfirmationEmail(obj);
+		
+		
 		return obj;
 	}
 }
