@@ -30,7 +30,9 @@ public class PedidoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	@Autowired
-	ItemPedidoRepository itemPedidoRepository;
+	private ItemPedidoRepository itemPedidoRepository;
+	@Autowired
+	private ClienteService clienteService;
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -45,6 +47,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);// Garantia de criação de um novo objeto no banco
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);// O pagamento precisa ter referência ao Pedido
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -52,22 +55,21 @@ public class PedidoService {
 			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
 		}
 		obj = repo.save(obj);
-		
-		//Persist Pagamento
+
+		// Persist Pagamento
 		Pagamento pagamento = pagamentoRepository.save(obj.getPagamento());
 
 		// Agora falta associar ItemPedido ao Pedido e Pagamento
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-
-			// ip.setPreco(produtoRepository.findById(ip.getProduto().getId()).get().getPreco());
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
-		
-		//Persist itens
-		itemPedidoRepository.saveAll(obj.getItens());
 
+		// Persist itens
+		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 }
