@@ -70,9 +70,8 @@ public class PedidoService {
 		}
 
 		// Persist itens
-		itemPedidoRepository.saveAll(obj.getItens());
-		
-		emailService.sendOrderConfirmationEmail(obj);
+		itemPedidoRepository.saveAll(obj.getItens());		
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		
 		
 		return obj;
