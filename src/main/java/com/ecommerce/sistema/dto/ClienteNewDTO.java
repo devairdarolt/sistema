@@ -9,43 +9,45 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.ecommerce.sistema.services.validation.ClienteInsert;
 
 @ClienteInsert
-public class ClienteNewDTO implements Serializable{
-	
+public class ClienteNewDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Length(min = 5, max = 120, message = "O tamanho deve estar entre 5 e 120 caracteres")
 	private String nome;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Email(message = "E-mail inválido")
 	private String email;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpfOuCnpj;
-	
+
 	private Integer tipo;
-	
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String senha;
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
-	
-	
+
 	private String numero;
 	private String complemento;
 	private String bairro;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
-	
+
 	private Integer cidadeId;
-	
+
 	public ClienteNewDTO() {
-		
+
 	}
 
 	public String getNome() {
@@ -78,6 +80,14 @@ public class ClienteNewDTO implements Serializable{
 
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getLogradouro() {
@@ -151,5 +161,5 @@ public class ClienteNewDTO implements Serializable{
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
-	
+
 }
