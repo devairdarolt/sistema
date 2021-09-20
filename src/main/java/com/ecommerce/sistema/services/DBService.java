@@ -20,6 +20,7 @@ import com.ecommerce.sistema.domain.PagamentoComCartao;
 import com.ecommerce.sistema.domain.Pedido;
 import com.ecommerce.sistema.domain.Produto;
 import com.ecommerce.sistema.domain.enums.EstadoPagamento;
+import com.ecommerce.sistema.domain.enums.Perfil;
 import com.ecommerce.sistema.domain.enums.TipoCliente;
 import com.ecommerce.sistema.repositories.CategoriaRepository;
 import com.ecommerce.sistema.repositories.CidadeRepository;
@@ -124,16 +125,22 @@ public class DBService {
 		 * CLIENTE, TELEFONES, ENDEREÇOS
 		 */
 
-		Cliente cli1 = new Cliente(null, "Alfa Delta", "alfadelta@omega.com", "36378912377", TipoCliente.PESSOAFISICA,passEncoder.encode("1234"));
+		Cliente cli1 = new Cliente(null, "Alfa Delta", "devairdarolt@live.com", "36378912377", TipoCliente.PESSOAFISICA,passEncoder.encode("1234"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Cliente cli2 = new Cliente(null, "Episilon Delta", "devairdarolt@gmail.com", "31628382740", TipoCliente.PESSOAFISICA,passEncoder.encode("4321"));
+		cli2.getTelefones().addAll(Arrays.asList("27363323"));
+		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Bairo Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Beira Rio", "80085", null, "Centro", "38777012", cli2, c2);
 
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-		clienteRepository.save(cli1);
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2,e3));
 
 		/**
 		 * PEDIDO, PAGAMENTO, ESTADO PAGAMENTO,
