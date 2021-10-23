@@ -1,7 +1,9 @@
 package com.ecommerce.sistema.resources.exceptions;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import com.ecommerce.sistema.services.exceptions.DataIntegrityException;
+import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +11,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.ecommerce.sistema.services.exceptions.DataIntegrityException;
-import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

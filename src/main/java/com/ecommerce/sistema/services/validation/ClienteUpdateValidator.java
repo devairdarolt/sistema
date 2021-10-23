@@ -3,22 +3,18 @@ package com.ecommerce.sistema.services.validation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
-
 import com.ecommerce.sistema.domain.Cliente;
-import com.ecommerce.sistema.domain.enums.TipoCliente;
 import com.ecommerce.sistema.dto.ClienteDTO;
-import com.ecommerce.sistema.dto.ClienteNewDTO;
 import com.ecommerce.sistema.repositories.ClienteRepository;
 import com.ecommerce.sistema.resources.exceptions.FieldMessage;
-import com.ecommerce.sistema.services.validation.utils.BR;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 

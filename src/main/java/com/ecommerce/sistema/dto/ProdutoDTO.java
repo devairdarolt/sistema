@@ -2,12 +2,6 @@ package com.ecommerce.sistema.dto;
 
 import java.io.Serializable;
 
-//import javax.validation.constraints.NotEmpty; Esta forma não funcionou o @NotEmpty
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.ecommerce.sistema.domain.Categoria;
 import com.ecommerce.sistema.domain.Produto;
 
 public class ProdutoDTO implements Serializable {

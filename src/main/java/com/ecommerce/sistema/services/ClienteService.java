@@ -3,17 +3,6 @@ package com.ecommerce.sistema.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ecommerce.sistema.domain.Cidade;
 import com.ecommerce.sistema.domain.Cliente;
 import com.ecommerce.sistema.domain.Endereco;
@@ -25,6 +14,15 @@ import com.ecommerce.sistema.repositories.ClienteRepository;
 import com.ecommerce.sistema.repositories.EnderecoRepository;
 import com.ecommerce.sistema.services.exceptions.DataIntegrityException;
 import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClienteService {

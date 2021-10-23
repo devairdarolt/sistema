@@ -3,6 +3,11 @@ package com.ecommerce.sistema.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.ecommerce.sistema.domain.Categoria;
+import com.ecommerce.sistema.dto.CategoriaDTO;
+import com.ecommerce.sistema.repositories.CategoriaRepository;
+import com.ecommerce.sistema.services.exceptions.DataIntegrityException;
+import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,13 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import com.ecommerce.sistema.domain.Categoria;
-import com.ecommerce.sistema.domain.Cliente;
-import com.ecommerce.sistema.dto.CategoriaDTO;
-import com.ecommerce.sistema.repositories.CategoriaRepository;
-import com.ecommerce.sistema.services.exceptions.DataIntegrityException;
-import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
