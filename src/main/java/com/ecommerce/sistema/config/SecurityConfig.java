@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,12 +20,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ecommerce.sistema.security.JWTAutenticationFilter;
+import com.ecommerce.sistema.security.JWTAuthorizationFilter;
 import com.ecommerce.sistema.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private JWTUtil jwtutil;
 	// pode fazer a injeção pela interface pois existe apenas uma Impl que
@@ -58,8 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(PUBLIC_MATCHERS).permitAll() // Permite acesso público para todos os métodos
 				.anyRequest().authenticated(); // Requisita autenticação para qualquer requisição
 
+		// Filtro de autenticação
 		http.addFilter(new JWTAutenticationFilter(authenticationManager(), jwtutil));
-		
+
+		// Filtro de autorização
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtutil, userDetailsService));
+
 		// Define a política de sessão como STATELESS para que o sistema não recupere
 		// sessão de usuário
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

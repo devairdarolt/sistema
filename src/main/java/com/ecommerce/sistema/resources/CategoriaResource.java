@@ -2,14 +2,18 @@ package com.ecommerce.sistema.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.ecommerce.sistema.domain.Categoria;
+import com.ecommerce.sistema.dto.CategoriaDTO;
+import com.ecommerce.sistema.services.CategoriaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.ecommerce.sistema.domain.Categoria;
-import com.ecommerce.sistema.dto.CategoriaDTO;
-import com.ecommerce.sistema.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -47,6 +47,7 @@ public class CategoriaResource {
 	 * @param obj
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.insert(service.fromDTO(objDto));
@@ -66,6 +67,7 @@ public class CategoriaResource {
 	 * @param obj
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDTO(objDto);
@@ -80,6 +82,7 @@ public class CategoriaResource {
 	 * @param id
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
