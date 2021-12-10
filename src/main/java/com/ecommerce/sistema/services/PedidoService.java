@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.sistema.domain.ItemPedido;
-import com.ecommerce.sistema.domain.Pagamento;
 import com.ecommerce.sistema.domain.PagamentoComBoleto;
 import com.ecommerce.sistema.domain.Pedido;
 import com.ecommerce.sistema.domain.enums.EstadoPagamento;
 import com.ecommerce.sistema.repositories.ItemPedidoRepository;
 import com.ecommerce.sistema.repositories.PagamentoRepository;
 import com.ecommerce.sistema.repositories.PedidoRepository;
-import com.ecommerce.sistema.repositories.ProdutoRepository;
 import com.ecommerce.sistema.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -27,8 +25,6 @@ public class PedidoService {
 	private BoletoService boletoService;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-	@Autowired
-	private ProdutoRepository produtoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
@@ -59,7 +55,7 @@ public class PedidoService {
 		obj = repo.save(obj);
 
 		// Persist Pagamento
-		Pagamento pagamento = pagamentoRepository.save(obj.getPagamento());
+		pagamentoRepository.save(obj.getPagamento());
 
 		// Agora falta associar ItemPedido ao Pedido e Pagamento
 		for (ItemPedido ip : obj.getItens()) {

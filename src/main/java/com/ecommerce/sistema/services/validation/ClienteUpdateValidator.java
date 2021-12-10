@@ -35,7 +35,7 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		Cliente clienteByEmail = repoCliente.findByEmail(objDto.getEmail());
 		
 		//Pegar Id de objDto pela URI
-		Map<String,String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		Map<String,String> map = getIdFromUriRequest();
 		Integer id = Integer.parseInt(map.get("id"));
 		
 		//Verificar se o email ja esta cadastrado para outro id
@@ -49,5 +49,10 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 					.addConstraintViolation();
 		}
 		return list.isEmpty();
+	}
+
+	@SuppressWarnings("unchecked")
+	private Map<String, String> getIdFromUriRequest() {
+		return (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 	}
 }
