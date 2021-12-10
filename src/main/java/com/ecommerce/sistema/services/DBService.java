@@ -125,10 +125,12 @@ public class DBService {
 		 * CLIENTE, TELEFONES, ENDEREÇOS
 		 */
 
-		Cliente cli1 = new Cliente(null, "Alfa Delta", "devairdarolt@live.com", "36378912377", TipoCliente.PESSOAFISICA,passEncoder.encode("1234"));
+		//Cliente cli1 = new Cliente(null, "Alfa Delta", "devairdarolt@live.com", "36378912377", TipoCliente.PESSOAFISICA,passEncoder.encode("1234"));
+		Cliente cli1 = new Cliente(null, "Cliente 1", "cliente1@example.com", "36378912377", TipoCliente.PESSOAFISICA,passEncoder.encode("cliente1"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Cliente cli2 = new Cliente(null, "Episilon Delta", "devairdarolt@gmail.com", "31628382740", TipoCliente.PESSOAFISICA,passEncoder.encode("4321"));
+		//Cliente cli2 = new Cliente(null, "Episilon Delta", "devairdarolt@gmail.com", "31628382740", TipoCliente.PESSOAFISICA,passEncoder.encode("4321"));
+		Cliente cli2 = new Cliente(null, "Ad 1", "ad1@example.com", "31628382740", TipoCliente.PESSOAFISICA,passEncoder.encode("ad1"));
 		cli2.getTelefones().addAll(Arrays.asList("27363323"));
 		cli2.addPerfil(Perfil.ADMIN);
 

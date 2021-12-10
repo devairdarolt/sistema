@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_MATCHERS_GET = { "/produtos/**", "/categorias/**" };
 
+	private static final String[] PUBLIC_MATCHERS_POST = { "/clientes/**"};
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -57,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Permite acesso aos end-points PUBLIC_MATCHERS[] e requisita autenticação para
 		// qualquer outro end-point
 		http.authorizeRequests()//
+				.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll() // Permite acesso público para os métodos do vetor Post
 				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()// Permite acesso público apenas para GET
 				.antMatchers(PUBLIC_MATCHERS).permitAll() // Permite acesso público para todos os métodos
 				.anyRequest().authenticated(); // Requisita autenticação para qualquer requisição
