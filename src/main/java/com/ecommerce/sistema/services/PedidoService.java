@@ -55,7 +55,7 @@ public class PedidoService {
 		obj = repo.save(obj);
 
 		// Persist Pagamento
-		pagamentoRepository.save(obj.getPagamento());
+		this.pagamentoRepository.save(obj.getPagamento());
 
 		// Agora falta associar ItemPedido ao Pedido e Pagamento
 		for (ItemPedido ip : obj.getItens()) {
