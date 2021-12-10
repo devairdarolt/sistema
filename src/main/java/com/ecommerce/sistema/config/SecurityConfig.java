@@ -23,6 +23,9 @@ import com.ecommerce.sistema.security.JWTAutenticationFilter;
 import com.ecommerce.sistema.security.JWTAuthorizationFilter;
 import com.ecommerce.sistema.security.JWTUtil;
 
+/**
+ * Classe de configuração de segurança do Sping Security
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
